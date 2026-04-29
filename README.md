@@ -198,3 +198,19 @@ The cluster-wide cluster-admin role grants cluster administration privileges to 
 
 [user@host ~]$ oc adm policy add-cluster-role-to-user cluster-admin student
 ====================================================================
+
+🔹 1. Use -o custom-columns (best for alignment)
+
+You can explicitly define columns so everything stays aligned:
+
+oc get clusterrolebinding \
+  -o custom-columns=NAME:.metadata.name,ROLE:.roleRef.name,SUBJECTS:.subjects[*].name
+
+This gives you a clean table like:
+
+NAME               ROLE              SUBJECTS
+admin-binding      cluster-admin     admin,user1
+view-binding       view              user2
+
+👉 You control spacing → much more readable.
+====================================================================
